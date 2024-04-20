@@ -19,6 +19,9 @@ public class Review {
     @Column(name = "content", nullable = false)
     private String content;
 
+    @Column(name = "date", nullable = false)
+    private String date;
+
     @ManyToOne
     @JoinColumn(name = "film_id")
     private Film film;

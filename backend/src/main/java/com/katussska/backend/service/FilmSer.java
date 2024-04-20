@@ -13,18 +13,18 @@ import java.util.stream.Collectors;
 
 @Service
 public class FilmSer {
-    private final TMDbSer tmdbSer;
+    private final TMDbSer tmdbService;
     private final FilmRep filmRepository;
-    private final GenreRep genreRep;
+    private final GenreRep genreRepository;
 
-    public FilmSer(TMDbSer tmdbSer, FilmRep filmRepository, GenreRep genreRep) {
-        this.tmdbSer = tmdbSer;
+    public FilmSer(TMDbSer tmdbService, FilmRep filmRepository, GenreRep genreRepository) {
+        this.tmdbService = tmdbService;
         this.filmRepository = filmRepository;
-        this.genreRep = genreRep;
+        this.genreRepository = genreRepository;
     }
 
     public List<Film> fetchAndSaveMovies(String url) {
-        List<FilmDto> filmDtos = tmdbSer.fetchMovies(url);
+        List<FilmDto> filmDtos = tmdbService.fetchMovies(url);
 
         List<Film> films = filmDtos.stream()
                 .map(this::convertDtoToEntity)
@@ -37,7 +37,7 @@ public class FilmSer {
     }
 
     public List<Film> fetchAndSaveSearchedMovies(String searched) {
-        List<FilmDto> filmDtos = tmdbSer.fetchSearchedMovies(searched);
+        List<FilmDto> filmDtos = tmdbService.fetchSearchedMovies(searched);
 
         List<Film> films = filmDtos.stream()
                 .map(this::convertDtoToEntity)
@@ -50,7 +50,7 @@ public class FilmSer {
     }
 
     private Film convertDtoToEntity(FilmDto filmDto) {
-        List<Genre> allGenres = genreRep.findAll();
+        List<Genre> allGenres = genreRepository.findAll();
         Map<Long, Genre> genreIdToGenreMap = allGenres.stream().collect(Collectors.toMap(Genre::getGenreId, genre -> genre));
 
         Film film = new Film();
