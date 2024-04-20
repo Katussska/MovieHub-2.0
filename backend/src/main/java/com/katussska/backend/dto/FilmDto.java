@@ -19,7 +19,7 @@ public class FilmDto {
     private String posterPath;
     private boolean adult;
     @JsonProperty("genre_ids")
-    private List<Integer> genreIds;
+    private List<Long> genres;
     @JsonProperty("original_language")
     private String originalLanguage;
     private double popularity;

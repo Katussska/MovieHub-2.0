@@ -26,12 +26,11 @@ public class TMDbSer {
         this.restTemplate = restTemplate;
     }
 
-    public List<FilmDto> fetchTrendingMovies() {
-        String url = "https://api.themoviedb.org/3/trending/movie/week?api_key=" + API_KEY;
+    public List<FilmDto> fetchMovies(String url) {
         log.info("Sending request to: " + url);
 
         ResponseEntity<FilmResultsDto> response = restTemplate.exchange(
-                url,
+                url + API_KEY,
                 HttpMethod.GET,
                 null,
                 FilmResultsDto.class

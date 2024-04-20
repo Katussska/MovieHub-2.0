@@ -2,33 +2,38 @@ package com.katussska.backend.service;
 
 import com.katussska.backend.dto.FilmDto;
 import com.katussska.backend.entities.Film;
+import com.katussska.backend.entities.Genre;
 import com.katussska.backend.repository.FilmRep;
+import com.katussska.backend.repository.GenreRep;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
 public class FilmSer {
     private final TMDbSer tmdbSer;
     private final FilmRep filmRepository;
+    private final GenreRep genreRep;
 
-    public FilmSer(TMDbSer tmdbSer, FilmRep filmRepository) {
+    public FilmSer(TMDbSer tmdbSer, FilmRep filmRepository, GenreRep genreRep) {
         this.tmdbSer = tmdbSer;
         this.filmRepository = filmRepository;
+        this.genreRep = genreRep;
     }
 
-    public List<Film> fetchAndSaveTrendingMovies() {
-        List<FilmDto> filmDtos = tmdbSer.fetchTrendingMovies();
+    public List<Film> fetchAndSaveMovies(String url) {
+        List<FilmDto> filmDtos = tmdbSer.fetchMovies(url);
 
         List<Film> films = filmDtos.stream()
                 .map(this::convertDtoToEntity)
                 .filter(film -> !filmRepository.existsById(film.getFilmId()))
                 .collect(Collectors.toList());
 
-        List<Film> savedFilms = filmRepository.saveAll(films);
+        filmRepository.saveAll(films);
 
-        return savedFilms;
+        return films;
     }
 
     public List<Film> fetchAndSaveSearchedMovies(String searched) {
@@ -45,6 +50,9 @@ public class FilmSer {
     }
 
     private Film convertDtoToEntity(FilmDto filmDto) {
+        List<Genre> allGenres = genreRep.findAll();
+        Map<Long, Genre> genreIdToGenreMap = allGenres.stream().collect(Collectors.toMap(Genre::getGenreId, genre -> genre));
+
         Film film = new Film();
         film.setAdult(filmDto.isAdult());
         film.setFilmId(filmDto.getId());
@@ -53,6 +61,10 @@ public class FilmSer {
         film.setPosterPath(filmDto.getPosterPath());
         film.setRelease(filmDto.getReleaseDate());
         film.setRating(filmDto.getVoteAverage());
+        film.setGenres(filmDto.getGenres()
+                .stream()
+                .map(genreIdToGenreMap::get)
+                .collect(Collectors.toList()));
         return film;
     }
 
