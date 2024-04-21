@@ -8,7 +8,8 @@ import lombok.Setter;
 @Getter
 @Entity
 @Table(name = "Review", indexes = {
-        @Index(name = "idx_review_review_id_unq", columnList = "review_id", unique = true)
+        @Index(name = "idx_review_review_id_unq",
+                columnList = "review_id", unique = true)
 })
 public class Review {
     @Id
@@ -28,5 +29,5 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private Users users;
 }

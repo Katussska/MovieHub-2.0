@@ -4,16 +4,15 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
 import java.util.List;
 
 @Setter
 @Getter
 @Entity
-@Table(name = "'User'", indexes = {
+@Table(name = "Users", indexes = {
         @Index(name = "idx_user_user_id", columnList = "user_id")
 })
-public class User {
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id", nullable = false)
@@ -34,9 +33,6 @@ public class User {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "date_of_birth")
-    private Date dateOfBirth;
-
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "users")
     private List<Review> reviews;
 }

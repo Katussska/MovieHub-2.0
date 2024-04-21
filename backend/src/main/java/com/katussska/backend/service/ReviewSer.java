@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ReviewSer {
-    private final ReviewRep reviewReppository;
+    private final ReviewRep reviewRepository;
 
-    public ReviewSer(ReviewRep reviewReppository) {
-        this.reviewReppository = reviewReppository;
+    public ReviewSer(ReviewRep reviewRepository) {
+        this.reviewRepository = reviewRepository;
     }
 
     public Review saveReview(Review review) {
-        return reviewReppository.save(review);
+        return reviewRepository.save(review);
     }
 }
