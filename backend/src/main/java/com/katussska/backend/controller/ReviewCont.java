@@ -10,10 +10,9 @@ import com.katussska.backend.service.ReviewSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/reviews")
@@ -48,17 +47,23 @@ public class ReviewCont {
         return new ResponseEntity<>(savedReview, HttpStatus.CREATED);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public void deleteReview(@RequestParam Long reviewId) {
         reviewRepository.findById(reviewId).ifPresent(reviewRepository::delete);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public void updateReview(@RequestParam Long reviewId, @RequestParam String content) {
         Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new RuntimeException("Review not found"));
 
         review.setContent(content);
 
         reviewRepository.save(review);
+    }
+
+    @GetMapping("/film/filmReviews")
+    public ResponseEntity<List<Review>> getReviewsForFilm(@RequestParam Long filmId) {
+        List<Review> reviews = reviewRepository.findByFilm_FilmId(filmId);
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 }

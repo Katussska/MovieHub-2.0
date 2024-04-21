@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.regex.Pattern;
+
 @RestController
 @RequestMapping("/users")
 public class UserCont {
@@ -20,6 +22,11 @@ public class UserCont {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody Users users) {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        if (!pattern.matcher(users.getEmail()).matches()) {
+            return new ResponseEntity<>(new ErrorResponse("Invalid email format"), HttpStatus.BAD_REQUEST);
+        }
         try {
             Users registeredUsers = userService.register(users);
             return new ResponseEntity<>(registeredUsers, HttpStatus.CREATED);
