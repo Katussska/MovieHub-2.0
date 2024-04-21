@@ -27,6 +27,9 @@ public class UserCont {
         if (!pattern.matcher(users.getEmail()).matches()) {
             return new ResponseEntity<>(new ErrorResponse("Invalid email format"), HttpStatus.BAD_REQUEST);
         }
+        if (users.getUsername().isEmpty() || users.getFirstName().isEmpty() || users.getLastName().isEmpty()) {
+            return new ResponseEntity<>(new ErrorResponse("Username, firstname and lastname must not be empty"), HttpStatus.BAD_REQUEST);
+        }
         try {
             Users registeredUsers = userService.register(users);
             return new ResponseEntity<>(registeredUsers, HttpStatus.CREATED);
