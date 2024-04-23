@@ -12,7 +12,15 @@ import {
 } from '@ionic/react';
 
 import { useLocation } from 'react-router-dom';
-import { film, heart, person, search, star, trendingUp } from 'ionicons/icons';
+import {
+  film,
+  heart,
+  person,
+  play,
+  search,
+  star,
+  trendingUp,
+} from 'ionicons/icons';
 import './Menu.css';
 
 interface AppPage {
@@ -34,6 +42,12 @@ const appPages: AppPage[] = [
     url: '/page/Trending',
     iosIcon: trendingUp,
     mdIcon: trendingUp,
+  },
+  {
+    title: 'Now Playing',
+    url: '/page/NowPlaying',
+    iosIcon: play,
+    mdIcon: play,
   },
   {
     title: 'Popular',
@@ -68,8 +82,7 @@ const Menu: React.FC = () => {
     <IonMenu contentId="main" type="overlay">
       <IonContent>
         <IonList id="inbox-list">
-          {/*TODO: predelat listHeader na user first and last name*/}
-          <IonListHeader>Inbox</IonListHeader>
+          <IonListHeader>MovieHub</IonListHeader>
 
           {/*TODO: predelat note na username*/}
           <IonNote>hi@ionicframework.com</IonNote>
