@@ -26,27 +26,29 @@ public class FilmSer {
     public List<Film> fetchAndSaveMovies(String url) {
         List<FilmDto> filmDtos = tmdbService.fetchMovies(url);
 
-        List<Film> films = filmDtos.stream()
-                .map(this::convertDtoToEntity)
-                .filter(film -> !filmRepository.existsById(film.getFilmId()))
-                .collect(Collectors.toList());
-
-        filmRepository.saveAll(films);
-
-        return films;
+        return getFilms(filmDtos);
     }
 
     public List<Film> fetchAndSaveSearchedMovies(String searched) {
         List<FilmDto> filmDtos = tmdbService.fetchSearchedMovies(searched);
 
+        return getFilms(filmDtos);
+    }
+
+    private List<Film> getFilms(List<FilmDto> filmDtos) {
         List<Film> films = filmDtos.stream()
-                .map(this::convertDtoToEntity)
-                .filter(film -> !filmRepository.existsById(film.getFilmId()))
+                .map(filmDto -> {
+                    if (filmRepository.existsById(filmDto.getId())) {
+                        return filmRepository.findById(filmDto.getId()).get();
+                    } else {
+                        Film film = convertDtoToEntity(filmDto);
+                        filmRepository.save(film);
+                        return film;
+                    }
+                })
                 .collect(Collectors.toList());
 
-        List<Film> savedFilms = filmRepository.saveAll(films);
-
-        return savedFilms;
+        return films;
     }
 
     private Film convertDtoToEntity(FilmDto filmDto) {
