@@ -45,7 +45,7 @@ const appPages: AppPage[] = [
   },
   {
     title: 'Now Playing',
-    url: '/page/NowPlaying',
+    url: '/page/Now Playing',
     iosIcon: play,
     mdIcon: play,
   },
@@ -57,7 +57,7 @@ const appPages: AppPage[] = [
   },
   {
     title: 'Top Rated',
-    url: '/page/TopRated',
+    url: '/page/Top Rated',
     iosIcon: star,
     mdIcon: star,
   },

@@ -1,0 +1,38 @@
+.CardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.StyledCard {
+    flex: 1 0 200px; /* flex-grow, flex-shrink, flex-basis */
+    max-width: 300px;
+    margin: 5px; /* mezera mezi kartami */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* vycentrování obsahu karty */
+}
+
+@media (min-width: 600px) {
+    .StyledCard {
+        flex: 1 0 calc(50% - 20px);
+    }
+}
+
+@media (min-width: 900px) {
+    .StyledCard {
+        flex: 1 0 calc(33.33% - 20px);
+    }
+}
+
+.StyledTitle {
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-align: center;
+    height: 50px;
+}

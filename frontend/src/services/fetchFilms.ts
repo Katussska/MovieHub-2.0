@@ -4,15 +4,23 @@ export const fetchFilms = async (url: string) => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
+
     const text = await response.text();
     console.log('Response text:', text); // Log the response text
     let films;
+
     try {
       films = JSON.parse(text);
     } catch {
       console.error('Received data is not in JSON format');
       return;
     }
+
+    films = films.map((film: any) => ({
+      ...film,
+      genres: film.genres.map((genre: any) => genre.name),
+    }));
+
     console.log('Data from fetch:', films); // výpis dat
     return films;
   } catch (error) {

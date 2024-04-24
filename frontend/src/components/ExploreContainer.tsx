@@ -15,7 +15,7 @@ interface ContainerProps {
 const ExploreContainer: React.FC<ContainerProps> = ({ name, films }) => {
   console.log('Props of ExploreContainer:', { name, films });
   return (
-    <div className="container">
+    <div className="CardContainer">
       {films &&
         films.map((film, index) => (
           <FilmCard
