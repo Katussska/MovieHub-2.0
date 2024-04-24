@@ -2,6 +2,7 @@
   "name": "financial-manager",
   "version": "0.0.1",
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@capacitor/android": "^5.7.1",
     "@capacitor/cli": "^5.7.1",
@@ -19,6 +20,7 @@
     "@types/react-router-dom": "^5.1.7",
     "history": "^4.9.0",
     "ionicons": "^7.0.0",
+    "node-fetch": "^3.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^5.2.0",

@@ -15,31 +15,41 @@ import { fetchFilms } from '../services/fetchFilms';
 
 const Page: React.FC = () => {
   const { name } = useParams<{ name: string }>();
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<
+    { title: string; poster: string; description: string; genres: string[] }[]
+  >([]);
 
   useEffect(() => {
+    console.log('useEffect called with name:', name);
     const getData = async () => {
       let result;
 
       switch (name) {
         case 'Trending':
-          result = await fetchFilms('http://localhost:8080/films/trending');
+          result = await fetchFilms('/films/trending');
           break;
         case 'Now Playing':
-          result = await fetchFilms('http://localhost:8080/films/nowPlaying');
+          result = await fetchFilms('/films/nowPlaying');
           break;
         case 'Popular':
-          result = await fetchFilms('http://localhost:8080/films/popular');
+          result = await fetchFilms('/films/popular');
           break;
         case 'Top Rated':
-          result = await fetchFilms('http://localhost:8080/films/topRated');
+          result = await fetchFilms('/films/topRated');
           break;
         case 'Upcoming':
-          result = await fetchFilms('http://localhost:8080/films/upcoming');
+          result = await fetchFilms('/films/upcoming');
           break;
       }
+
+      console.log('Data in useEffect:', result); // výpis dat
+      setData(result);
     };
+
+    getData();
   }, [name]);
+
+  console.log('Page rendered with name:', name);
 
   return (
     <IonPage>
@@ -58,7 +68,7 @@ const Page: React.FC = () => {
             <IonTitle size="large">{name}</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer name={name} />
+        <ExploreContainer name={name} films={data} />
       </IonContent>
     </IonPage>
   );
