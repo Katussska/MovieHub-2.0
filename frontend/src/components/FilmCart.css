@@ -6,6 +6,12 @@
     align-items: center;
     justify-self: center;
     padding-bottom: 15px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+.StyledCard:hover {
+    box-shadow: 0 0 10px 4px #428CFFFF;
 }
 
 .StyledTitle {

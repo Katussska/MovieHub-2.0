@@ -25,6 +25,10 @@ const Page: React.FC = () => {
   >([]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [name]);
+
+  useEffect(() => {
     const getData = async () => {
       let result;
 
