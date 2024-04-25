@@ -3,6 +3,8 @@ package com.katussska.backend.controller;
 import com.katussska.backend.entities.Film;
 import com.katussska.backend.repository.FilmRep;
 import com.katussska.backend.service.FilmSer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,8 @@ public class FilmCont {
 
     private final FilmSer filmService;
     private final FilmRep filmRepository;
+    @Autowired
+    private ResourceLoader resourceLoader;
 
     public FilmCont(FilmSer filmService, FilmRep filmRepository) {
         this.filmService = filmService;
@@ -64,4 +68,23 @@ public class FilmCont {
         Film film = filmRepository.findById(filmId).orElseThrow(() -> new RuntimeException("Film not found"));
         return new ResponseEntity<>(film, HttpStatus.OK);
     }
+
+//    @GetMapping("/poster")
+//    public ResponseEntity<byte[]> getPoster(@RequestParam String posterPath) {
+//        String url = "https://image.tmdb.org/t/p/original/" + posterPath;
+//        RestTemplate restTemplate = new RestTemplate();
+//        byte[] imageBytes;
+//
+//        try {
+//            Resource resource = new ClassPathResource("addons/MovieHub_poster.jpg");
+//            imageBytes = StreamUtils.copyToByteArray(resource.getInputStream());
+//        } catch (Exception ex) {
+//            throw new RuntimeException("Error loading default poster", ex);
+//        }
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.IMAGE_JPEG);
+//
+//        return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
+//    }
 }

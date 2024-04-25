@@ -10,25 +10,17 @@ import {
 
 interface CartProps {
   title: string;
-  poster: string;
+  posterPath: string;
   description: string;
   genres: string[];
 }
 
 const FilmCard: React.FC<CartProps> = ({
   title,
-  poster,
+  posterPath,
   description,
   genres,
 }) => {
-  const shortenDescription = (desc: string) => {
-    if (desc.length > 50) {
-      return desc.substring(0, 50) + '...';
-    }
-
-    return desc;
-  };
-
   const displayGenres = (genres: string[]) => {
     return genres
       .slice(0, 3)
@@ -36,19 +28,20 @@ const FilmCard: React.FC<CartProps> = ({
       .join(' ');
   };
 
+  const imageUrl = posterPath
+    ? `https://image.tmdb.org/t/p/original/${posterPath}`
+    : '/theme/MovieHub_poster.jpg';
+
   return (
     <IonCard className="StyledCard">
-      <img alt="Film poster" src={`https://image.tmdb.org/t/p/200/${poster}`} />
+      <img alt={posterPath} src={imageUrl} />
       <IonCardHeader>
         <IonCardSubtitle className="genres">
           {displayGenres(genres)}
         </IonCardSubtitle>
         <IonCardTitle className="StyledTitle">{title}</IonCardTitle>
       </IonCardHeader>
-
-      <IonCardContent className="description">
-        {shortenDescription(description)}
-      </IonCardContent>
+      <IonCardContent className="description">{description}</IonCardContent>
     </IonCard>
   );
 };

@@ -1,24 +1,38 @@
 .StyledCard {
-    width: 300px;
+    width: 260px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     justify-self: center;
+    padding-bottom: 15px;
 }
 
 .StyledTitle {
     white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     text-align: center;
     height: 50px;
 }
 
+.description {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.5em;
+    max-height: 3em;
+}
+
 .genres {
     display: flex;
-    align-self: center;
+    align-items: center;
+    justify-content: center;
 }

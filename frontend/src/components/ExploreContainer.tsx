@@ -22,7 +22,7 @@ const ExploreContainer: React.FC<ContainerProps> = ({ name, films }) => {
             <FilmCard
               key={index}
               title={film.title}
-              poster={film.poster}
+              posterPath={film.poster}
               description={film.description}
               genres={film.genres}
             />

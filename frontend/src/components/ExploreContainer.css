@@ -1,12 +1,11 @@
 .container {
-    margin: auto;
+    margin: 20px 35px;
 }
 
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     row-gap: 5px;
-    column-gap: 25px;
     margin: 20px;
     justify-content: center;
 }
