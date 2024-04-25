@@ -68,23 +68,4 @@ public class FilmCont {
         Film film = filmRepository.findById(filmId).orElseThrow(() -> new RuntimeException("Film not found"));
         return new ResponseEntity<>(film, HttpStatus.OK);
     }
-
-//    @GetMapping("/poster")
-//    public ResponseEntity<byte[]> getPoster(@RequestParam String posterPath) {
-//        String url = "https://image.tmdb.org/t/p/original/" + posterPath;
-//        RestTemplate restTemplate = new RestTemplate();
-//        byte[] imageBytes;
-//
-//        try {
-//            Resource resource = new ClassPathResource("addons/MovieHub_poster.jpg");
-//            imageBytes = StreamUtils.copyToByteArray(resource.getInputStream());
-//        } catch (Exception ex) {
-//            throw new RuntimeException("Error loading default poster", ex);
-//        }
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.IMAGE_JPEG);
-//
-//        return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
-//    }
 }
