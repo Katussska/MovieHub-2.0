@@ -60,7 +60,7 @@ public class FilmSer {
         film.setFilmId(filmDto.getId());
         film.setTitle(filmDto.getTitle());
         film.setDescription(filmDto.getOverview());
-        film.setPosterPath(filmDto.getPosterPath());
+        film.setPosterPath("https://image.tmdb.org/t/p/original" + filmDto.getPosterPath());
         film.setRelease(filmDto.getReleaseDate());
         film.setRating(filmDto.getVoteAverage());
         film.setGenres(filmDto.getGenres()
