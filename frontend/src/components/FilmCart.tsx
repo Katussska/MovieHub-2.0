@@ -28,13 +28,9 @@ const FilmCard: React.FC<CartProps> = ({
       .join(' ');
   };
 
-  const imageUrl = posterPath
-    ? `https://image.tmdb.org/t/p/original/${posterPath}`
-    : '/theme/MovieHub_poster.jpg';
-
   return (
     <IonCard className="StyledCard">
-      <img alt={posterPath} src={imageUrl} />
+      <img alt="Film poster" src={posterPath} />
       <IonCardHeader>
         <IonCardSubtitle className="genres">
           {displayGenres(genres)}

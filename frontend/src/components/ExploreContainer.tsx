@@ -6,7 +6,7 @@ interface ContainerProps {
   name: string;
   films: {
     title: string;
-    poster: string;
+    posterPath: string;
     description: string;
     genres: string[];
   }[];
@@ -22,7 +22,7 @@ const ExploreContainer: React.FC<ContainerProps> = ({ name, films }) => {
             <FilmCard
               key={index}
               title={film.title}
-              posterPath={film.poster}
+              posterPath={film.posterPath}
               description={film.description}
               genres={film.genres}
             />

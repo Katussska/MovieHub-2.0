@@ -16,11 +16,15 @@ import { fetchFilms } from '../services/fetchFilms';
 const Page: React.FC = () => {
   const { name } = useParams<{ name: string }>();
   const [data, setData] = useState<
-    { title: string; poster: string; description: string; genres: string[] }[]
+    {
+      title: string;
+      posterPath: string;
+      description: string;
+      genres: string[];
+    }[]
   >([]);
 
   useEffect(() => {
-    console.log('useEffect called with name:', name);
     const getData = async () => {
       let result;
 
