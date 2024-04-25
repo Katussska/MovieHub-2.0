@@ -40,11 +40,15 @@ const FilmCard: React.FC<CartProps> = ({
     <IonCard className="StyledCard">
       <img alt="Film poster" src={`https://image.tmdb.org/t/p/200/${poster}`} />
       <IonCardHeader>
-        <IonCardSubtitle>{displayGenres(genres)}</IonCardSubtitle>
+        <IonCardSubtitle className="genres">
+          {displayGenres(genres)}
+        </IonCardSubtitle>
         <IonCardTitle className="StyledTitle">{title}</IonCardTitle>
       </IonCardHeader>
 
-      <IonCardContent>{shortenDescription(description)}</IonCardContent>
+      <IonCardContent className="description">
+        {shortenDescription(description)}
+      </IonCardContent>
     </IonCard>
   );
 };
