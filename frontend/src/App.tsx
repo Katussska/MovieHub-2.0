@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   IonApp,
   IonRouterOutlet,
@@ -34,26 +34,35 @@ import './theme/variables.css';
 setupIonicReact();
 
 const App: React.FC = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
   return (
     <IonApp>
       <IonReactRouter>
-        <IonSplitPane contentId="main">
-          <Menu />
+        {isLoggedIn ? (
+          <IonSplitPane contentId="main">
+            <Menu />
+            <IonRouterOutlet id="main">
+              <Route path="/page/:name" exact={true}>
+                <Page />
+              </Route>
+            </IonRouterOutlet>
+          </IonSplitPane>
+        ) : (
           <IonRouterOutlet id="main">
-            <Route path="/" exact={true}>
-              <Redirect to="/login" />
+            <Route path="/register" exact={true}>
+              <Register onRegister={handleLogin} />
             </Route>
             <Route path="/login" exact={true}>
-              <Login />
+              <Login onLogin={handleLogin} />
             </Route>
-            <Route path="/register" exact={true}>
-              <Register />
-            </Route>
-            <Route path="/page/:name" exact={true}>
-              <Page />
-            </Route>
+            <Redirect from="/" to="/register" exact />
           </IonRouterOutlet>
-        </IonSplitPane>
+        )}
       </IonReactRouter>
     </IonApp>
   );

@@ -1,16 +1,38 @@
 import React, { useState } from 'react';
 
-const Login: React.FC = () => {
+interface LoginProps {
+  onLogin: () => void;
+}
+
+const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    // Handle login logic here
+    // Replace with your API call
+    const response = await fetch('/users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }),
+    });
+    const data = await response.json();
+    if (data.success) {
+      onLogin();
+    } else {
+      // Handle error
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      {/*<input*/}
+      {/*  type = "text"*/}
+      {/*  value=any*/}
+      {/*  onChange={(e) => set}*/}
+
       <input
         type="text"
         value={username}
