@@ -1,6 +1,5 @@
 package com.katussska.backend.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -27,11 +26,11 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "film_id")
-    @JsonManagedReference(value = "film-review")
+    @JsonManagedReference(value = "review-film")
     private Film film;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference(value = "user-review")
+    @JsonManagedReference(value = "review-user")
     private Users users;
 }

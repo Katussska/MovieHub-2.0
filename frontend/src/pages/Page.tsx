@@ -5,16 +5,19 @@ import {
   IonHeader,
   IonMenuButton,
   IonPage,
+  IonSearchbar,
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
 import { useParams } from 'react-router';
 import ExploreContainer from '../components/ExploreContainer';
+import UserProfile from '../components/UserProfile';
 import './Page.css';
 import { fetchFilms } from '../services/fetchFilms';
 
 const Page: React.FC = () => {
   const { name } = useParams<{ name: string }>();
+
   const [data, setData] = useState<
     {
       title: string;
@@ -23,6 +26,15 @@ const Page: React.FC = () => {
       genres: string[];
     }[]
   >([]);
+  const [searchValue, setSearchValue] = useState('');
+
+  const handleSearch = async (event: CustomEvent) => {
+    setSearchValue(event.detail.value);
+    const result = await fetchFilms(
+      `/films/search?query=${event.detail.value}`,
+    );
+    setData(result);
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -48,6 +60,9 @@ const Page: React.FC = () => {
         case 'Upcoming':
           result = await fetchFilms('/films/upcoming');
           break;
+        case 'Search':
+          result = await fetchFilms(`/films/search?query=${searchValue}`);
+          break;
       }
 
       console.log('Data in useEffect:', result); // výpis dat
@@ -66,7 +81,16 @@ const Page: React.FC = () => {
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle>{name}</IonTitle>
+          <IonTitle className={name === 'Search' ? 'title-search' : ''}>
+            {name}
+          </IonTitle>
+          {name === 'Search' && (
+            <IonSearchbar
+              className="search-bar"
+              value={searchValue}
+              onIonChange={handleSearch}
+            ></IonSearchbar>
+          )}
         </IonToolbar>
       </IonHeader>
 
@@ -76,7 +100,11 @@ const Page: React.FC = () => {
             <IonTitle size="large">{name}</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer name={name} films={data} />
+        {name === 'Profile' ? (
+          <UserProfile user={user} />
+        ) : (
+          <ExploreContainer name={name} films={data} />
+        )}
       </IonContent>
     </IonPage>
   );

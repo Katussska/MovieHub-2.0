@@ -1,4 +1,16 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+
+import {
+  IonButton,
+  IonHeader,
+  IonIcon,
+  IonInput,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/react';
+import './Login.css';
+import { logInOutline, personAddOutline } from 'ionicons/icons';
 
 interface LoginProps {
   onLogin: () => void;
@@ -27,26 +39,50 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {/*<input*/}
-      {/*  type = "text"*/}
-      {/*  value=any*/}
-      {/*  onChange={(e) => set}*/}
+    <>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>MovieHub</IonTitle>
+        </IonToolbar>
+      </IonHeader>
 
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Username"
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      />
-      <button type="submit">Login</button>
-    </form>
+      <div className="form">
+        <h1>Sign In</h1>
+        <h3>Welcome Back! </h3>
+
+        <form onSubmit={handleSubmit}>
+          <IonInput
+            value={username}
+            onIonChange={(e) => setUsername(e.detail.value!)}
+            label="Username"
+            labelPlacement="floating"
+            fill="outline"
+            placeholder="Tassilo"
+          ></IonInput>
+
+          <IonInput
+            value={password}
+            onIonChange={(e) => setPassword(e.detail.value!)}
+            label="Password"
+            type="password"
+            labelPlacement="floating"
+            fill="outline"
+          ></IonInput>
+
+          <Link to="/register">
+            <IonButton fill="outline" size="small">
+              I do not have an account
+              <IonIcon slot="start" icon={personAddOutline}></IonIcon>
+            </IonButton>
+          </Link>
+
+          <IonButton onClick={handleSubmit}>
+            Login
+            <IonIcon slot="start" icon={logInOutline}></IonIcon>
+          </IonButton>
+        </form>
+      </div>
+    </>
   );
 };
 

@@ -1,4 +1,16 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './Login.css';
+import {
+  IonButton,
+  IonHeader,
+  IonIcon,
+  IonInput,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/react';
+import { logInOutline, personAddOutline } from 'ionicons/icons';
+import { useHistory } from 'react-router';
 
 interface RegisterProps {
   onRegister: () => void;
@@ -11,73 +23,110 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
+  const history = useHistory();
+
   const handleSubmit = async (event: React.FormEvent) => {
+    // event.preventDefault();
+    // try {
+    //   const response = await fetch('/users/register', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       username: username,
+    //       password: password,
+    //       email: email,
+    //       firstName: firstName,
+    //       lastName: lastName,
+    //     }),
+    //   });
+    //   if (!response.ok) {
+    //     console.error('Response status:', response.status);
+    //   }
+    //   const data = await response.json();
+    //   if (data.success) {
+    //     onRegister();
+    //   } else {
+    //     // Handle error
+    //   }
+    // } catch (error) {
+    //   console.error('Fetch error:', error);
+    // }
     event.preventDefault();
-    try {
-      const response = await fetch('/users/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: username,
-          password: password,
-          email: email,
-          firstName: firstName,
-          lastName: lastName,
-        }),
-      });
-      if (!response.ok) {
-        console.error('Response status:', response.status);
-      }
-      const data = await response.json();
-      if (data.success) {
-        onRegister();
-      } else {
-        // Handle error
-      }
-    } catch (error) {
-      console.error('Fetch error:', error);
-    }
+    onRegister();
+    history.push('/page/Search');
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-        placeholder="First Name"
-      />
-      <input
-        type="text"
-        value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
-        placeholder="Last Name"
-      />
+    <>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>MovieHub</IonTitle>
+        </IonToolbar>
+      </IonHeader>
 
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Username"
-      />
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-      />
+      <div className="form">
+        <h1>Sign up</h1>
+        <h3>and dive into films</h3>
 
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      />
+        <form onSubmit={handleSubmit}>
+          <IonInput
+            value={firstName}
+            onIonChange={(e) => setFirstName(e.detail.value!)}
+            label="First Name"
+            labelPlacement="floating"
+            fill="outline"
+            placeholder="Filip"
+          ></IonInput>
+          <IonInput
+            value={lastName}
+            onIonChange={(e) => setLastName(e.detail.value!)}
+            label="Last Name"
+            labelPlacement="floating"
+            fill="outline"
+            placeholder="Sikora"
+          ></IonInput>
+          <IonInput
+            value={username}
+            onIonChange={(e) => setUsername(e.detail.value!)}
+            label="Username"
+            labelPlacement="floating"
+            fill="outline"
+            placeholder="Tassilo"
+          ></IonInput>
+          <IonInput
+            value={email}
+            onIonChange={(e) => setEmail(e.detail.value!)}
+            label="Email Address"
+            type="email"
+            labelPlacement="floating"
+            fill="outline"
+            placeholder="example@company.com"
+          ></IonInput>
+          <IonInput
+            value={password}
+            onIonChange={(e) => setPassword(e.detail.value!)}
+            label="Password"
+            type="password"
+            labelPlacement="floating"
+            fill="outline"
+          ></IonInput>
 
-      <button type="submit">Register</button>
-    </form>
+          <Link to="/login">
+            <IonButton fill="outline" size="small">
+              Already have an account
+              <IonIcon slot="start" icon={logInOutline}></IonIcon>
+            </IonButton>
+          </Link>
+
+          <IonButton onClick={handleSubmit}>
+            Register
+            <IonIcon slot="start" icon={personAddOutline}></IonIcon>
+          </IonButton>
+        </form>
+      </div>
+    </>
   );
 };
 

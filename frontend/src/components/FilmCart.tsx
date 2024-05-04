@@ -27,10 +27,9 @@ const FilmCard: React.FC<CartProps> = ({
       .map((genre) => (genre === 'Science Fiction' ? 'Sci-Fi' : genre))
       .join(' ');
   };
-
   return (
     <IonCard className="StyledCard">
-      <img alt="Film poster" src={posterPath} />
+      <img alt="Film poster not found" src={posterPath} />
       <IonCardHeader>
         <IonCardSubtitle className="genres">
           {displayGenres(genres)}

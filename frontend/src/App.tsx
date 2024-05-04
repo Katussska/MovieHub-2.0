@@ -50,6 +50,7 @@ const App: React.FC = () => {
               <Route path="/page/:name" exact={true}>
                 <Page />
               </Route>
+              <Redirect from="/" to="/page/trending" exact />
             </IonRouterOutlet>
           </IonSplitPane>
         ) : (

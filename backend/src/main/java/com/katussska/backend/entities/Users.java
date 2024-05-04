@@ -1,6 +1,6 @@
 package com.katussska.backend.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,6 +35,6 @@ public class Users {
     private String lastName;
 
     @OneToMany(mappedBy = "users")
-    @JsonManagedReference(value = "user-review")
+    @JsonBackReference(value = "user-review")
     private List<Review> reviews;
 }

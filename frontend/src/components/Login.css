@@ -1,0 +1,27 @@
+.form {
+    margin-top: 40px;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 300px;
+}
+
+ion-input {
+    margin: 10px 0;
+}
+
+ion-button {
+    margin-top: 20px;
+}
+
+h3 {
+    padding-bottom: 30px;
+}
