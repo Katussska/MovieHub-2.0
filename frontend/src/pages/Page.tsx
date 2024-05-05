@@ -9,9 +9,11 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
+import { Route } from 'react-router-dom';
 import { useParams } from 'react-router';
 import ExploreContainer from '../components/ExploreContainer';
 import UserProfile from '../components/UserProfile';
+import FilmProfile from '../components/FilmProfile';
 import './Page.css';
 import { fetchFilms } from '../services/fetchFilms';
 
@@ -20,12 +22,22 @@ const Page: React.FC = () => {
 
   const [data, setData] = useState<
     {
+      filmId: number;
       title: string;
       posterPath: string;
       description: string;
       genres: string[];
     }[]
   >([]);
+
+  const [user, setUser] = useState<{
+    username: string;
+    password: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+  }>();
+
   const [searchValue, setSearchValue] = useState('');
 
   const handleSearch = async (event: CustomEvent) => {
@@ -64,15 +76,11 @@ const Page: React.FC = () => {
           result = await fetchFilms(`/films/search?query=${searchValue}`);
           break;
       }
-
-      console.log('Data in useEffect:', result); // výpis dat
       setData(result);
     };
 
     getData();
   }, [name]);
-
-  console.log('Page rendered with name:', name);
 
   return (
     <IonPage>
@@ -103,11 +111,15 @@ const Page: React.FC = () => {
         {name === 'Profile' ? (
           <UserProfile user={user} />
         ) : (
-          <ExploreContainer name={name} films={data} />
+          <>
+            <Route path="/page/film/:id" exact={true} component={FilmProfile} />
+            <Route path="/page/:name" exact={true}>
+              <ExploreContainer name={name} films={data} />
+            </Route>
+          </>
         )}
       </IonContent>
     </IonPage>
   );
 };
-
 export default Page;

@@ -21,7 +21,7 @@ export const fetchFilms = async (url: string) => {
       genres: film.genres.map((genre: any) => genre.name),
     }));
 
-    console.log('Data from fetch:', films); // výpis dat
+    console.log('Data from fetch:', films);
     return films;
   } catch (error) {
     console.error('There was a problem with the fetch operation: ', error);

@@ -1,5 +1,6 @@
 import React from 'react';
 import './FilmCart.css';
+import { Link } from 'react-router-dom';
 import {
   IonCard,
   IonCardContent,
@@ -9,6 +10,7 @@ import {
 } from '@ionic/react';
 
 interface CartProps {
+  id: number;
   title: string;
   posterPath: string;
   description: string;
@@ -16,6 +18,7 @@ interface CartProps {
 }
 
 const FilmCard: React.FC<CartProps> = ({
+  id,
   title,
   posterPath,
   description,
@@ -27,17 +30,20 @@ const FilmCard: React.FC<CartProps> = ({
       .map((genre) => (genre === 'Science Fiction' ? 'Sci-Fi' : genre))
       .join(' ');
   };
+
   return (
-    <IonCard className="StyledCard">
-      <img alt="Film poster not found" src={posterPath} />
-      <IonCardHeader>
-        <IonCardSubtitle className="genres">
-          {displayGenres(genres)}
-        </IonCardSubtitle>
-        <IonCardTitle className="StyledTitle">{title}</IonCardTitle>
-      </IonCardHeader>
-      <IonCardContent className="description">{description}</IonCardContent>
-    </IonCard>
+    <Link to={`/film/${id}`}>
+      <IonCard className="StyledCard">
+        <img alt="Film poster not found" src={posterPath} />
+        <IonCardHeader>
+          <IonCardSubtitle className="genres">
+            {displayGenres(genres)}
+          </IonCardSubtitle>
+          <IonCardTitle className="StyledTitle">{title}</IonCardTitle>
+        </IonCardHeader>
+        <IonCardContent className="description">{description}</IonCardContent>
+      </IonCard>
+    </Link>
   );
 };
 

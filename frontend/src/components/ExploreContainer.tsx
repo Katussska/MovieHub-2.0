@@ -5,6 +5,7 @@ import FilmCard from './FilmCart';
 interface ContainerProps {
   name: string;
   films: {
+    filmId: number;
     title: string;
     posterPath: string;
     description: string;
@@ -21,6 +22,7 @@ const ExploreContainer: React.FC<ContainerProps> = ({ name, films }) => {
           films.map((film, index) => (
             <FilmCard
               key={index}
+              id={film.filmId}
               title={film.title}
               posterPath={film.posterPath}
               description={film.description}

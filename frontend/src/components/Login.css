@@ -25,3 +25,7 @@ ion-button {
 h3 {
     padding-bottom: 30px;
 }
+
+h1, h3, ion-title {
+    cursor: default;
+}
