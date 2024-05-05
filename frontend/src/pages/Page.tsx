@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import {
   IonButtons,
   IonContent,
@@ -9,13 +8,15 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
+import React, { useEffect, useState } from 'react';
 import { Route } from 'react-router-dom';
 import { useParams } from 'react-router';
+import { fetchFilms } from '../services/fetchFilms';
 import ExploreContainer from '../components/ExploreContainer';
 import UserProfile from '../components/UserProfile';
 import FilmProfile from '../components/FilmProfile';
+
 import './Page.css';
-import { fetchFilms } from '../services/fetchFilms';
 
 const Page: React.FC = () => {
   const { name } = useParams<{ name: string }>();

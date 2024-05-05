@@ -32,7 +32,7 @@ const FilmCard: React.FC<CartProps> = ({
   };
 
   return (
-    <Link to={`/film/${id}`}>
+    <Link to={`/page/film/${id}`}>
       <IonCard className="StyledCard">
         <img alt="Film poster not found" src={posterPath} />
         <IonCardHeader>

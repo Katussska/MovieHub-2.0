@@ -25,6 +25,8 @@ const FilmProfile: React.FC<RouteComponentProps<MatchParams>> = ({ match }) => {
       .join(' ');
   };
 
+  console.log('idk uz');
+
   useEffect(() => {
     console.log('Fetching film data for id:', match.params.id);
     fetch(`/films/filmInfo?filmId=${match.params.id}`)
@@ -43,6 +45,8 @@ const FilmProfile: React.FC<RouteComponentProps<MatchParams>> = ({ match }) => {
   if (!film) {
     return <div>Loading...</div>;
   }
+
+  console.log('idk uz2.0');
 
   return (
     <div>
