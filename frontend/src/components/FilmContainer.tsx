@@ -1,20 +1,13 @@
 import React from 'react';
-import './ExploreContainer.css';
+import './FilmContainer.css';
 import FilmCard from './FilmCart';
+import { Film } from '../types';
 
 interface ContainerProps {
-  name: string;
-  films: {
-    filmId: number;
-    title: string;
-    posterPath: string;
-    description: string;
-    genres: string[];
-  }[];
+  films: Array<Film>;
 }
 
-const ExploreContainer: React.FC<ContainerProps> = ({ name, films }) => {
-  console.log('Props of ExploreContainer:', { name, films });
+const FilmContainer: React.FC<ContainerProps> = ({ films }) => {
   return (
     <div className="container">
       <div className="grid-container">
@@ -34,4 +27,4 @@ const ExploreContainer: React.FC<ContainerProps> = ({ name, films }) => {
   );
 };
 
-export default ExploreContainer;
+export default FilmContainer;

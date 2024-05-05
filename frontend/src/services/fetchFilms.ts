@@ -1,6 +1,10 @@
 export const fetchFilms = async (url: string) => {
   try {
-    const response = await fetch(url);
+    const response = await fetch(process.env.REACT_APP_API_URL + url, {headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }});
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

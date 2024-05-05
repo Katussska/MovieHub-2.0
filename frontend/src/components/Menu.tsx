@@ -30,46 +30,46 @@ interface AppPage {
   title: string;
 }
 
-const appPages: AppPage[] = [
+export const appPages: AppPage[] = [
   {
     title: 'Search',
-    url: '/page/Search',
+    url: '/page/search',
     iosIcon: search,
     mdIcon: search,
   },
   {
     title: 'Trending',
-    url: '/page/Trending',
+    url: '/page/trending',
     iosIcon: trendingUp,
     mdIcon: trendingUp,
   },
   {
     title: 'Now Playing',
-    url: '/page/Now Playing',
+    url: '/page/nowPlaying',
     iosIcon: play,
     mdIcon: play,
   },
   {
     title: 'Popular',
-    url: '/page/Popular',
+    url: '/page/popular',
     iosIcon: heart,
     mdIcon: heart,
   },
   {
     title: 'Top Rated',
-    url: '/page/Top Rated',
+    url: '/page/topRated',
     iosIcon: star,
     mdIcon: star,
   },
   {
     title: 'Upcoming',
-    url: '/page/Upcoming',
+    url: '/page/upcoming',
     iosIcon: film,
     mdIcon: film,
   },
   {
     title: 'Profile',
-    url: '/page/Profile',
+    url: '/page/profile',
     iosIcon: person,
     mdIcon: person,
   },

@@ -32,6 +32,7 @@ const FilmCard: React.FC<CartProps> = ({
   };
 
   return (
+    // todo use card href prop instead of link
     <Link to={`/page/film/${id}`}>
       <IonCard className="StyledCard">
         <img alt="Film poster not found" src={posterPath} />
