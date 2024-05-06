@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Setter
@@ -29,9 +28,11 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "film_id")
+    @JsonManagedReference(value = "review-film")
     private Film film;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonManagedReference(value = "review-film")
     private AppUser appUser;
 }

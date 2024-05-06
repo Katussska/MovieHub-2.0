@@ -1,5 +1,7 @@
 package com.katussska.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +26,7 @@ public class Film {
             joinColumns = @JoinColumn(name = "film_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "genre_id", nullable = false)
     )
+    @JsonManagedReference
     private List<Genre> genres;
 
     @Id
@@ -46,5 +49,6 @@ public class Film {
     private Double rating;
 
     @OneToMany(mappedBy = "film")
+    @JsonBackReference
     private List<Review> reviews;
 }

@@ -1,9 +1,9 @@
 package com.katussska.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -37,5 +37,6 @@ public class AppUser {
     private String lastName;
 
     @OneToMany(mappedBy = "appUser")
+    @JsonBackReference
     private List<Review> reviews;
 }
