@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { FilmDetail, Genre } from '../types';
-import { IonIcon, IonItem, IonLabel, IonTitle } from '@ionic/react';
+import { IonIcon, IonItem, IonLabel } from '@ionic/react';
 import { RenderStars } from './RenderStars';
 import './FilmProfile.css';
 import { chatbubbles } from 'ionicons/icons';
@@ -50,8 +50,9 @@ const FilmProfile = () => {
 
       <div className={'film-details'}>
         <div className={'film-title'}>
-          <IonTitle className={'film-title'}>{film.title}</IonTitle>
+          <p>{film.title}</p>
         </div>
+
         <IonItem>
           <IonLabel color={'primary'}>Genres:</IonLabel>
           <p>{displayGenres(film.genres)}</p>

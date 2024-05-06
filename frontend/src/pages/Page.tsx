@@ -30,7 +30,7 @@ const Page = ({ title, children }: { title?: string; children: ReactNode }) => {
                 ? title
                 : appPages.find(
                     (page) => page.url.replace('/page/', '') === name,
-                  )?.title}
+                  )?.title || 'MovieHub'}
             </IonTitle>
           </IonToolbar>
         </IonHeader>
