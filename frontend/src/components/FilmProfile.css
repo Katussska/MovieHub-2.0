@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: default;
 }
 
 @media (max-width: 700px) {
@@ -66,4 +67,8 @@
 .review-icon:hover {
     cursor: pointer;
     color: #428CFFFF;
+}
+
+.film-genres {
+    text-align: end;
 }

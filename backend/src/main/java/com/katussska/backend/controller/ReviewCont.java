@@ -1,8 +1,8 @@
 package com.katussska.backend.controller;
 
+import com.katussska.backend.entities.AppUser;
 import com.katussska.backend.entities.Film;
 import com.katussska.backend.entities.Review;
-import com.katussska.backend.entities.Users;
 import com.katussska.backend.repository.FilmRep;
 import com.katussska.backend.repository.ReviewRep;
 import com.katussska.backend.repository.UserRep;
@@ -35,12 +35,12 @@ public class ReviewCont {
     public ResponseEntity<Review> createReview(@RequestParam String content, @RequestParam String date,
                                                @RequestParam Long userId, @RequestParam Long filmId) {
         Review review = new Review();
-        Users users = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        AppUser appUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         Film film = filmRepository.findById(filmId).orElseThrow(() -> new RuntimeException("Film not found"));
 
         review.setContent(content);
         review.setDate(date);
-        review.setUsers(users);
+        review.setAppUser(appUser);
         review.setFilm(film);
 
         Review savedReview = reviewService.saveReview(review);

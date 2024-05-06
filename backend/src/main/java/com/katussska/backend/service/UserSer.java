@@ -1,6 +1,6 @@
 package com.katussska.backend.service;
 
-import com.katussska.backend.entities.Users;
+import com.katussska.backend.entities.AppUser;
 import com.katussska.backend.repository.UserRep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,26 +17,26 @@ public class UserSer {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Users register(Users users) {
-        Users existingUsersByEmail = userRepository.findByEmail(users.getEmail());
-        Users existingUsersByUsername = userRepository.findByUsername(users.getUsername());
-        if (existingUsersByEmail != null)
+    public AppUser register(AppUser appUser) {
+        AppUser existingAppUserByEmail = userRepository.findByEmail(appUser.getEmail());
+        AppUser existingAppUserByUsername = userRepository.findByUsername(appUser.getUsername());
+        if (existingAppUserByEmail != null)
             throw new IllegalArgumentException("Email is already taken");
 
-        if (existingUsersByUsername != null)
+        if (existingAppUserByUsername != null)
             throw new IllegalArgumentException("Username is already taken");
 
-        users.setPassword(passwordEncoder.encode(users.getPassword()));
-        return userRepository.save(users);
+        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
+        return userRepository.save(appUser);
     }
 
-    public Users login(Users users) {
-        Users existingUsers = userRepository.findByEmail(users.getEmail());
+    public AppUser login(AppUser appUser) {
+        AppUser existingAppUser = userRepository.findByEmail(appUser.getEmail());
 
-        if (existingUsers == null || !passwordEncoder.matches(users.getPassword(), existingUsers.getPassword()))
+        if (existingAppUser == null || !passwordEncoder.matches(appUser.getPassword(), existingAppUser.getPassword()))
             throw new IllegalArgumentException("Invalid email or password");
 
-        return existingUsers;
+        return existingAppUser;
     }
 
     public void deleteUser(Long id) {
@@ -47,15 +47,15 @@ public class UserSer {
         }
     }
 
-    public Users findById(Long id) {
+    public AppUser findById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
-    public Users findByUsername(String username) {
+    public AppUser findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    public Users saveUser(Users users) {
-        return userRepository.save(users);
+    public AppUser saveUser(AppUser appUser) {
+        return userRepository.save(appUser);
     }
 }

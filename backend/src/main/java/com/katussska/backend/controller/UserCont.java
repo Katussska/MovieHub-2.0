@@ -1,7 +1,7 @@
 package com.katussska.backend.controller;
 
 import com.katussska.backend.dto.ErrorResponse;
-import com.katussska.backend.entities.Users;
+import com.katussska.backend.entities.AppUser;
 import com.katussska.backend.service.UserSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,28 +21,28 @@ public class UserCont {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody Users users) {
+    public ResponseEntity<?> register(@RequestBody AppUser appUser) {
         String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
         Pattern pattern = Pattern.compile(emailRegex);
-        if (!pattern.matcher(users.getEmail()).matches()) {
+        if (!pattern.matcher(appUser.getEmail()).matches()) {
             return new ResponseEntity<>(new ErrorResponse("Invalid email format"), HttpStatus.BAD_REQUEST);
         }
-        if (users.getUsername().isEmpty() || users.getFirstName().isEmpty() || users.getLastName().isEmpty()) {
+        if (appUser.getUsername().isEmpty() || appUser.getFirstName().isEmpty() || appUser.getLastName().isEmpty()) {
             return new ResponseEntity<>(new ErrorResponse("Username, firstname and lastname must not be empty"), HttpStatus.BAD_REQUEST);
         }
         try {
-            Users registeredUsers = userService.register(users);
-            return new ResponseEntity<>(registeredUsers, HttpStatus.CREATED);
+            AppUser registeredAppUser = userService.register(appUser);
+            return new ResponseEntity<>(registeredAppUser, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(new ErrorResponse(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Users> login(@RequestBody Users users) {
+    public ResponseEntity<AppUser> login(@RequestBody AppUser appUser) {
         try {
-            Users authenticatedUsers = userService.login(users);
-            return new ResponseEntity<>(authenticatedUsers, HttpStatus.OK);
+            AppUser authenticatedAppUser = userService.login(appUser);
+            return new ResponseEntity<>(authenticatedAppUser, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -50,24 +50,24 @@ public class UserCont {
 
     // In UserCont.java
     @PutMapping("/update")
-    public ResponseEntity<?> updateUser(@RequestParam Long id, @RequestBody Users updatedUsers) {
+    public ResponseEntity<?> updateUser(@RequestParam Long id, @RequestBody AppUser updatedAppUser) {
         try {
-            Users existingUsers = userService.findById(id);
-            if (existingUsers == null)
+            AppUser existingAppUser = userService.findById(id);
+            if (existingAppUser == null)
                 return new ResponseEntity<>(new ErrorResponse("User with id " + id + " does not exist"), HttpStatus.NOT_FOUND);
 
 
-            Users usersWithSameUsername = userService.findByUsername(updatedUsers.getUsername());
-            if (usersWithSameUsername != null && !usersWithSameUsername.getUserId().equals(id))
+            AppUser appUserWithSameUsername = userService.findByUsername(updatedAppUser.getUsername());
+            if (appUserWithSameUsername != null && !appUserWithSameUsername.getUserId().equals(id))
                 return new ResponseEntity<>(new ErrorResponse("Username is already in use"), HttpStatus.BAD_REQUEST);
 
 
-            existingUsers.setUsername(updatedUsers.getUsername());
-            existingUsers.setFirstName(updatedUsers.getFirstName());
-            existingUsers.setLastName(updatedUsers.getLastName());
+            existingAppUser.setUsername(updatedAppUser.getUsername());
+            existingAppUser.setFirstName(updatedAppUser.getFirstName());
+            existingAppUser.setLastName(updatedAppUser.getLastName());
 
-            Users savedUsers = userService.saveUser(existingUsers);
-            return new ResponseEntity<>(savedUsers, HttpStatus.OK);
+            AppUser savedAppUser = userService.saveUser(existingAppUser);
+            return new ResponseEntity<>(savedAppUser, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(new ErrorResponse(e.getMessage()), HttpStatus.BAD_REQUEST);
         }

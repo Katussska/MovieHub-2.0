@@ -5,6 +5,7 @@ import { IonIcon, IonItem, IonLabel } from '@ionic/react';
 import { RenderStars } from './RenderStars';
 import './FilmProfile.css';
 import { chatbubbles } from 'ionicons/icons';
+import ReviewsContainer from './ReviewsContainer';
 
 const FilmProfile = () => {
   const [film, setFilm] = useState<FilmDetail | null>(null);
@@ -55,7 +56,7 @@ const FilmProfile = () => {
 
         <IonItem>
           <IonLabel color={'primary'}>Genres:</IonLabel>
-          <p>{displayGenres(film.genres)}</p>
+          <p className={'film-genres'}>{displayGenres(film.genres)}</p>
         </IonItem>
 
         <IonItem>
@@ -76,7 +77,9 @@ const FilmProfile = () => {
             slot={'end'}
             size={'large'}
             className={'review-icon'}
-          ></IonIcon>{' '}
+            id={'open-modal'}
+          ></IonIcon>
+          <ReviewsContainer />
         </IonItem>
       </div>
     </div>

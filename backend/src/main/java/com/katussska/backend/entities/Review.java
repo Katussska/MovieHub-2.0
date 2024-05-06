@@ -31,6 +31,5 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonManagedReference(value = "review-user")
-    private Users users;
+    private AppUser appUser;
 }

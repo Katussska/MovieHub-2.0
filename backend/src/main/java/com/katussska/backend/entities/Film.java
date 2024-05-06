@@ -1,6 +1,5 @@
 package com.katussska.backend.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -47,6 +46,5 @@ public class Film {
     private Double rating;
 
     @OneToMany(mappedBy = "film")
-    @JsonBackReference(value = "film-review")
     private List<Review> reviews;
 }

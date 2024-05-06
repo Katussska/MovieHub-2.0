@@ -24,3 +24,9 @@ export type User = {
   firstName: string;
   lastName: string;
 };
+
+export type Review = {
+  username: string;
+  content: string;
+  date: string;
+};

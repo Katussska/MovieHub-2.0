@@ -1,6 +1,5 @@
 package com.katussska.backend.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +12,7 @@ import java.util.List;
 @Table(name = "Users", indexes = {
         @Index(name = "idx_user_user_id", columnList = "user_id")
 })
-public class Users {
+public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id", nullable = false)
@@ -34,7 +33,6 @@ public class Users {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @OneToMany(mappedBy = "users")
-    @JsonBackReference(value = "user-review")
+    @OneToMany(mappedBy = "appUser")
     private List<Review> reviews;
 }
