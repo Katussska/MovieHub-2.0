@@ -17,16 +17,16 @@ import java.util.List;
         @Index(name = "idx_genre_genre_id_unq", columnList = "genre_id", unique = true)
 })
 @NoArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "genreId")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "genreId")
 public class Genre {
     @Id
     @Column(name = "genre_id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long genreId;
 
     @Column(name = "name", nullable = false)
     private String name;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "genres")
     private List<Film> films;
 
