@@ -2,7 +2,6 @@
   "name": "financial-manager",
   "version": "0.0.1",
   "private": true,
-  "proxy": "http://localhost:8080",
   "dependencies": {
     "@capacitor/android": "^5.7.1",
     "@capacitor/cli": "^5.7.1",

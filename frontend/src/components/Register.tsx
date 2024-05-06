@@ -55,7 +55,7 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
     // }
     event.preventDefault();
     onRegister();
-    history.push('/page/Search');
+    history.push('/page/trending');
   };
 
   return (

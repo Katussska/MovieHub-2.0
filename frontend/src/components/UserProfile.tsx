@@ -24,15 +24,13 @@ import {
 } from 'ionicons/icons';
 
 interface ProfileProps {
-  user:
-    | {
-        username: string;
-        password: string;
-        email: string;
-        firstName: string;
-        lastName: string;
-      }
-    | undefined;
+  user?: {
+    username: string;
+    password: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+  };
 }
 
 const ExploreContainer: React.FC<ProfileProps> = ({ user }) => {
@@ -52,6 +50,8 @@ const ExploreContainer: React.FC<ProfileProps> = ({ user }) => {
   const isMediumScreen = useMediaQuery({
     query: '(min-width: 451px) and (max-width: 1250px)',
   });
+
+  // TODO fetch user info here, using userId from localStorage
 
   return (
     <div className="container">

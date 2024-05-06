@@ -11,6 +11,10 @@ import Menu from './components/Menu';
 import Page from './pages/Page';
 import Login from './components/Login';
 import Register from './components/Register';
+import Search from './components/Search';
+import UserProfile from './components/UserProfile';
+import FilmProfile from './components/FilmProfile';
+import ExploreFilms from './components/ExploreFilms';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -34,36 +38,45 @@ import './theme/variables.css';
 setupIonicReact();
 
 const App: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const handleLogin = () => {
-    setIsLoggedIn(true);
+    localStorage.setItem('user', 'kokot');
   };
 
   return (
     <IonApp>
       <IonReactRouter>
-        {isLoggedIn ? (
-          <IonSplitPane contentId="main">
-            <Menu />
-            <IonRouterOutlet id="main">
-              <Route path="/page/:name" exact={true}>
-                <Page />
-              </Route>
-              <Redirect from="/" to="/page/trending" exact />
-            </IonRouterOutlet>
-          </IonSplitPane>
-        ) : (
+        <IonSplitPane contentId="main">
+          <Menu />
           <IonRouterOutlet id="main">
-            <Route path="/register" exact={true}>
+            <Route path="/register" exact>
               <Register onRegister={handleLogin} />
             </Route>
-            <Route path="/login" exact={true}>
+            <Route path="/login" exact>
               <Login onLogin={handleLogin} />
             </Route>
-            <Redirect from="/" to="/register" exact />
+            <Route path="/page/:name" exact>
+              <Page>
+                <ExploreFilms />
+              </Page>
+            </Route>
+            <Route path="/page/search" exact>
+              <Page title="Search">
+                <Search />
+              </Page>
+            </Route>
+            <Route path="/page/profile" exact>
+              <Page title="Profile">
+                <UserProfile />
+              </Page>
+            </Route>
+            <Route path="/page/film/:id" exact>
+              <Page>
+                <FilmProfile />
+              </Page>
+            </Route>
+            <Redirect from="/" to="/page/trending" exact />
           </IonRouterOutlet>
-        )}
+        </IonSplitPane>
       </IonReactRouter>
     </IonApp>
   );
