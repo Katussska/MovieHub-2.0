@@ -1,8 +1,8 @@
 package com.katussska.backend.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -13,6 +13,7 @@ import java.util.List;
 @Table(name = "Film", indexes = {
         @Index(name = "idx_film_film_id_unq", columnList = "film_id", unique = true)
 })
+@NoArgsConstructor
 public class Film {
     @Column(name = "18+", nullable = false)
     private Boolean adult;
@@ -23,7 +24,6 @@ public class Film {
             joinColumns = @JoinColumn(name = "film_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "genre_id", nullable = false)
     )
-    @JsonManagedReference
     private List<Genre> genres;
 
     @Id

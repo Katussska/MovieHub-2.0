@@ -2,6 +2,8 @@ package com.katussska.backend.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.List;
 @Table(name = "Users", indexes = {
         @Index(name = "idx_user_user_id", columnList = "user_id")
 })
+@NoArgsConstructor
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

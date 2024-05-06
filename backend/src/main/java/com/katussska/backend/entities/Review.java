@@ -3,6 +3,8 @@ package com.katussska.backend.entities;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Setter
@@ -12,6 +14,7 @@ import lombok.Setter;
         @Index(name = "idx_review_review_id_unq",
                 columnList = "review_id", unique = true)
 })
+@NoArgsConstructor
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,7 +29,6 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "film_id")
-    @JsonManagedReference(value = "review-film")
     private Film film;
 
     @ManyToOne
