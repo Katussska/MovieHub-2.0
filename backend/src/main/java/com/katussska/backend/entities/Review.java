@@ -1,6 +1,8 @@
 package com.katussska.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +16,7 @@ import lombok.Setter;
                 columnList = "review_id", unique = true)
 })
 @NoArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "reviewId")
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,11 +31,9 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "film_id")
-    @JsonManagedReference(value = "review-film")
     private Film film;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonManagedReference(value = "review-film")
     private AppUser appUser;
 }
