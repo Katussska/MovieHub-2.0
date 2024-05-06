@@ -16,3 +16,11 @@ export type Genre = {
   id: number;
   name: string;
 };
+
+export type User = {
+  username: string;
+  password: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+};

@@ -33,7 +33,7 @@ interface ProfileProps {
   };
 }
 
-const ExploreContainer: React.FC<ProfileProps> = ({ user }) => {
+const UserProfile: React.FC<ProfileProps> = ({ user }) => {
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
   const togglePasswordVisibility = () => {
     setIsPasswordHidden(!isPasswordHidden);
@@ -181,4 +181,4 @@ const ExploreContainer: React.FC<ProfileProps> = ({ user }) => {
   );
 };
 
-export default ExploreContainer;
+export default UserProfile;

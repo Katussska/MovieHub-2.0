@@ -1,0 +1,66 @@
+.film-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 700px) {
+    .film-container {
+        flex-direction: column;
+    }
+}
+
+.film-container ion-item {
+    padding: 10px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.film-container ion-label {
+    margin-right: 20px;
+}
+
+.film-poster {
+    display: flex;
+    max-width: 400px;
+    box-shadow: 0 0 10px 4px #428CFFFF;
+    margin: 30px;
+}
+
+.film-title {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    font-size: 30px;
+}
+
+.rating-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.film-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 400px;
+    width: 100%;
+    margin-top: -30px;
+}
+
+.film-description {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 250px;
+    width: 100%;
+}
+
+.review-icon:hover {
+    cursor: pointer;
+    color: #428CFFFF;
+}

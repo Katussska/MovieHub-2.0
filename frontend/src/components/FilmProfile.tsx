@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { FilmDetail, Genre } from '../types';
+import { IonIcon, IonItem, IonLabel, IonTitle } from '@ionic/react';
+import { RenderStars } from './RenderStars';
+import './FilmProfile.css';
+import { chatbubbles } from 'ionicons/icons';
 
 const FilmProfile = () => {
   const [film, setFilm] = useState<FilmDetail | null>(null);
@@ -9,7 +13,7 @@ const FilmProfile = () => {
   const displayGenres = (genres: string[]) => {
     return genres
       .map((genre) => (genre === 'Science Fiction' ? 'Sci-Fi' : genre))
-      .join(' ');
+      .join(' • ');
   };
 
   useEffect(() => {
@@ -31,14 +35,49 @@ const FilmProfile = () => {
   }
 
   return (
-    <div>
-      <h1>{film.title}</h1>
-      <img src={film.posterPath} alt={film.title} />
-      <p>{film.description}</p>
-      <p>{displayGenres(film.genres)}</p>
-      <p>Release Date: {film.release}</p>
-      <p>Rating: {film.rating}</p>
-      <p>{film.adult ? 'Adult' : 'Not Adult'}</p>
+    <div className={'film-container'}>
+      <div className={'film-poster-rating'}>
+        <div className={'film-poster'}>
+          <img src={film.posterPath} alt={film.title} />
+        </div>
+
+        <div className={'rating-container'}>
+          <IonItem className={'film-rating'}>
+            <RenderStars rating={film.rating} />
+          </IonItem>
+        </div>
+      </div>
+
+      <div className={'film-details'}>
+        <div className={'film-title'}>
+          <IonTitle className={'film-title'}>{film.title}</IonTitle>
+        </div>
+        <IonItem>
+          <IonLabel color={'primary'}>Genres:</IonLabel>
+          <p>{displayGenres(film.genres)}</p>
+        </IonItem>
+
+        <IonItem>
+          <IonLabel color={'primary'}>Release Date:</IonLabel>
+          <p>{film.release}</p>
+        </IonItem>
+
+        <IonItem className={'film-description'}>
+          <IonLabel color={'primary'}>
+            Description:<p>{film.description}</p>
+          </IonLabel>
+        </IonItem>
+
+        <IonItem className={'film-reviews'}>
+          <IonLabel color={'primary'}>Reviews:</IonLabel>
+          <IonIcon
+            icon={chatbubbles}
+            slot={'end'}
+            size={'large'}
+            className={'review-icon'}
+          ></IonIcon>{' '}
+        </IonItem>
+      </div>
     </div>
   );
 };
