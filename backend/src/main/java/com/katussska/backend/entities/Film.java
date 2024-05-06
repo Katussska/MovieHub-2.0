@@ -1,7 +1,7 @@
 package com.katussska.backend.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -22,7 +22,7 @@ public class Film {
     @Column(name = "18+", nullable = false)
     private Boolean adult;
 
-    @JsonManagedReference
+    @JsonIgnoreProperties("films")
     @ManyToMany
     @JoinTable(
             name = "film_genre",
