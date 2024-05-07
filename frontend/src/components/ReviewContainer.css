@@ -1,5 +1,5 @@
 
-.review-icon:hover, .review-icon-close:hover {
+.review-icon:hover, .review-icon-close:hover, .add-review-icon:hover {
     cursor: pointer;
     color: #428CFFFF;
 }
@@ -7,3 +7,16 @@
 .review-icon-close {
     padding-right: 15px;
 }
+
+.add-review-container {
+    display: flex;
+    padding-left: 20px;
+}
+
+.add-review-icon {
+    margin: 20px;
+}
+
+/*.review-item-container {*/
+/*    margin-bottom: 10px;*/
+/*}*/

@@ -5,7 +5,6 @@ import {
   IonHeader,
   IonIcon,
   IonInput,
-  IonItem,
   IonList,
   IonModal,
   IonTitle,
@@ -20,15 +19,21 @@ import './ReviewContainer.css';
 const ReviewsContainer = () => {
   const [reviews, setReviews] = useState<Array<Review>>([]);
   const { id } = useParams<{ id: string }>();
+  const [content, setContent] = useState('');
 
   useEffect(() => {
     fetch(
       process.env.REACT_APP_API_URL + `/reviews/film/filmReviews?filmId=${id}`,
     )
       .then((response) => response.json())
-      .then((data: Array<Review>) => {
+      .then((data: Array<any>) => {
         console.log('Fetched reviews data:', data);
-        setReviews(data);
+        const reviews = data.map((item) => ({
+          date: item.date,
+          content: item.content,
+          username: item.appUser.username,
+        }));
+        setReviews(reviews);
       })
       .catch((error) => console.error('Error fetching reviews data:', error));
   }, [id]);
@@ -50,6 +55,38 @@ const ReviewsContainer = () => {
   function openModal() {
     modal.current?.present();
   }
+
+  const sendReview = () => {
+    const date = new Date().toISOString().split('T')[0];
+
+    fetch(
+      `http://localhost:8080/reviews/create?content=${encodeURIComponent(content)}&date=${date}&username=${localStorage.getItem('user')}&filmId=${id}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+
+        setReviews((prevReviews) => [
+          ...prevReviews,
+          {
+            content: content,
+            date: date,
+            username: localStorage.getItem('user')!,
+            filmId: id,
+          },
+        ]);
+        setContent('');
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
 
   return (
     <>
@@ -95,17 +132,26 @@ const ReviewsContainer = () => {
           </IonList>
         </IonContent>
 
-        <IonItem className={'add-review-container'}>
+        <div className={'add-review-container'}>
           <IonInput
-            label="Review comment"
+            className={'add-review'}
+            label="Enter review"
             labelPlacement="floating"
             fill="outline"
-            placeholder="Enter review"
+            placeholder=" I really liked this movie!"
             counter={true}
             maxlength={150}
+            onIonChange={(e) => setContent(e.detail.value!)}
           ></IonInput>
-          <IonIcon color={'primary'} icon={send}></IonIcon>
-        </IonItem>
+
+          <IonIcon
+            color={'primary'}
+            icon={send}
+            size={'large'}
+            className={'add-review-icon'}
+            onClick={sendReview}
+          ></IonIcon>
+        </div>
       </IonModal>
     </>
   );
