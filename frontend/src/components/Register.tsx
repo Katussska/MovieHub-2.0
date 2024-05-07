@@ -12,11 +12,7 @@ import {
 import { logInOutline, personAddOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router';
 
-interface RegisterProps {
-  onRegister: () => void;
-}
-
-const Register: React.FC<RegisterProps> = ({ onRegister }) => {
+const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -26,37 +22,39 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
   const history = useHistory();
 
   const handleSubmit = async (event: React.FormEvent) => {
-    // event.preventDefault();
-    // try {
-    //   const response = await fetch('/users/register', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       username: username,
-    //       password: password,
-    //       email: email,
-    //       firstName: firstName,
-    //       lastName: lastName,
-    //     }),
-    //   });
-    //   if (!response.ok) {
-    //     console.error('Response status:', response.status);
-    //   }
-    //   const data = await response.json();
-    //   if (data.success) {
-    //     onRegister();
-    //   } else {
-    //     // Handle error
-    //   }
-    // } catch (error) {
-    //   console.error('Fetch error:', error);
-    // }
     event.preventDefault();
-    onRegister();
-    history.push('/page/trending');
-  };
+    try {
+      const response = await fetch(process.env.REACT_APP_API_URL + '/users/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: 0,
+          username: username,
+          password: password,
+          email: email,
+          firstName: firstName,
+          lastName: lastName,
+          reviews: [],
+        }),
+      });
+      if (!response.ok) {
+        console.error('Response status:', response.status);
+      }
+
+      const data = await response.json();
+      if ('errorMessage' in data) {
+        console.error(data.errorMessage);
+      } else {
+        localStorage.setItem('user', username);
+        history.push('/page/trending');
+
+      }
+    } catch (error) {
+      console.error('Fetch error:', error);
+    }
+     };
 
   return (
     <>

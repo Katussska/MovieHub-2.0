@@ -64,11 +64,6 @@
     width: 100%;
 }
 
-.review-icon:hover {
-    cursor: pointer;
-    color: #428CFFFF;
-}
-
 .film-genres {
     text-align: end;
 }

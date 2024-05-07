@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { FilmDetail, Genre } from '../types';
-import { IonIcon, IonItem, IonLabel } from '@ionic/react';
+import { IonItem, IonLabel } from '@ionic/react';
 import { RenderStars } from './RenderStars';
 import './FilmProfile.css';
-import { chatbubbles } from 'ionicons/icons';
 import ReviewsContainer from './ReviewsContainer';
 
 const FilmProfile = () => {
@@ -72,13 +71,6 @@ const FilmProfile = () => {
 
         <IonItem className={'film-reviews'}>
           <IonLabel color={'primary'}>Reviews:</IonLabel>
-          <IonIcon
-            icon={chatbubbles}
-            slot={'end'}
-            size={'large'}
-            className={'review-icon'}
-            id={'open-modal'}
-          ></IonIcon>
           <ReviewsContainer />
         </IonItem>
       </div>

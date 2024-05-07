@@ -6,15 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class UserSer {
     private final UserRep userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserSer(UserRep userRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserSer(UserRep userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public AppUser register(AppUser appUser) {
@@ -26,15 +26,15 @@ public class UserSer {
         if (existingAppUserByUsername != null)
             throw new IllegalArgumentException("Username is already taken");
 
-        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
+        appUser.setPassword(appUser.getPassword());
         return userRepository.save(appUser);
     }
 
-    public AppUser login(AppUser appUser) {
-        AppUser existingAppUser = userRepository.findByEmail(appUser.getEmail());
+    public AppUser login(String username, String password) {
+        AppUser existingAppUser = userRepository.findByUsername(username);
 
-        if (existingAppUser == null || !passwordEncoder.matches(appUser.getPassword(), existingAppUser.getPassword()))
-            throw new IllegalArgumentException("Invalid email or password");
+        if (existingAppUser == null || (!Objects.equals(password, existingAppUser.getPassword())))
+            throw new IllegalArgumentException("Invalid username or password");
 
         return existingAppUser;
     }

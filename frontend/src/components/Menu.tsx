@@ -85,7 +85,7 @@ const Menu: React.FC = () => {
           <IonListHeader>MovieHub</IonListHeader>
 
           {/*TODO: predelat note na username*/}
-          <IonNote>[Username]</IonNote>
+          <IonNote>{localStorage.getItem('user')}</IonNote>
           {appPages.map((appPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>

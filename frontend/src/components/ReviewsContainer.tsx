@@ -4,15 +4,18 @@ import {
   IonContent,
   IonHeader,
   IonIcon,
+  IonInput,
+  IonItem,
   IonList,
   IonModal,
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
-import { closeCircleOutline } from 'ionicons/icons';
+import { chatbubbles, closeCircleOutline, send } from 'ionicons/icons';
 import { Review } from '../types';
 import { useParams } from 'react-router';
 import ReviewItem from './ReviewItem';
+import './ReviewContainer.css';
 
 const ReviewsContainer = () => {
   const [reviews, setReviews] = useState<Array<Review>>([]);
@@ -44,35 +47,67 @@ const ReviewsContainer = () => {
     modal.current?.dismiss();
   }
 
+  function openModal() {
+    modal.current?.present();
+  }
+
   return (
-    <IonModal
-      ref={modal}
-      presentingElement={presentingElement!}
-      trigger={'open-modal'}
-    >
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Reviews</IonTitle>
-          <IonButtons slot="end">
-            <IonIcon
-              size={'large'}
-              icon={closeCircleOutline}
-              onClick={() => dismiss()}
-            >
-              Close
-            </IonIcon>
-          </IonButtons>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent className="ion-padding">
-        <IonList>
-          {reviews &&
-            reviews.map((review, index) => (
-              <ReviewItem key={index} review={review} />
-            ))}
-        </IonList>
-      </IonContent>
-    </IonModal>
+    <>
+      <IonIcon
+        size={'large'}
+        icon={chatbubbles}
+        onClick={openModal}
+        className={'review-icon'}
+      >
+        Open Reviews
+      </IonIcon>
+
+      <IonModal
+        ref={modal}
+        presentingElement={presentingElement!}
+        trigger={'open-modal'}
+      >
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle color={'primary'}>Reviews</IonTitle>
+            <IonButtons slot="end">
+              <IonIcon
+                slot={'end'}
+                size={'large'}
+                className={'review-icon-close'}
+                icon={closeCircleOutline}
+                onClick={() => dismiss()}
+              >
+                Close
+              </IonIcon>
+            </IonButtons>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent className="ion-padding">
+          <IonList>
+            {reviews.length === 0 ? (
+              <IonTitle>No reviews available</IonTitle>
+            ) : (
+              reviews.map((review, index) => (
+                <ReviewItem key={index} review={review} />
+              ))
+            )}
+          </IonList>
+        </IonContent>
+
+        <IonItem className={'add-review-container'}>
+          <IonInput
+            label="Review comment"
+            labelPlacement="floating"
+            fill="outline"
+            placeholder="Enter review"
+            counter={true}
+            maxlength={150}
+          ></IonInput>
+          <IonIcon color={'primary'} icon={send}></IonIcon>
+        </IonItem>
+      </IonModal>
+    </>
   );
 };
 

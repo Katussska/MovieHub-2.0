@@ -21,7 +21,7 @@ public class UserCont {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody AppUser appUser) {
+    public ResponseEntity<?> registerUser(@RequestBody AppUser appUser) {
         String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
         Pattern pattern = Pattern.compile(emailRegex);
         if (!pattern.matcher(appUser.getEmail()).matches()) {
@@ -32,16 +32,16 @@ public class UserCont {
         }
         try {
             AppUser registeredAppUser = userService.register(appUser);
-            return new ResponseEntity<>(registeredAppUser, HttpStatus.CREATED);
+            return new ResponseEntity<>(registeredAppUser, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(new ErrorResponse(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AppUser> login(@RequestBody AppUser appUser) {
+    public ResponseEntity<AppUser> loginUser(@RequestParam String username,@RequestParam String password) {
         try {
-            AppUser authenticatedAppUser = userService.login(appUser);
+            AppUser authenticatedAppUser = userService.login(username, password);
             return new ResponseEntity<>(authenticatedAppUser, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -79,6 +79,15 @@ public class UserCont {
             userService.deleteUser(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @GetMapping("/detail")
+    public ResponseEntity<AppUser> getUser(@RequestParam String username){
+        AppUser appUser = userService.findByUsername(username);
+        if (appUser != null) {
+            return new ResponseEntity<>(appUser, HttpStatus.OK);
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

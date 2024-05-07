@@ -38,10 +38,6 @@ import './theme/variables.css';
 setupIonicReact();
 
 const App: React.FC = () => {
-  const handleLogin = () => {
-    localStorage.setItem('user', 'kokot');
-  };
-
   return (
     <IonApp>
       <IonReactRouter>
@@ -49,10 +45,10 @@ const App: React.FC = () => {
           <Menu />
           <IonRouterOutlet id="main">
             <Route path="/register" exact>
-              <Register onRegister={handleLogin} />
+              <Register />
             </Route>
             <Route path="/login" exact>
-              <Login onLogin={handleLogin} />
+              <Login  />
             </Route>
             <Route path="/page/:name" exact>
               <Page>

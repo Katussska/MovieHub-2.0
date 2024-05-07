@@ -1,0 +1,9 @@
+
+.review-icon:hover, .review-icon-close:hover {
+    cursor: pointer;
+    color: #428CFFFF;
+}
+
+.review-icon-close {
+    padding-right: 15px;
+}

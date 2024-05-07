@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useMediaQuery } from 'react-responsive';
 import EditPopUp from './EditPopUp';
 import './UserProfile.css';
@@ -22,18 +22,14 @@ import {
   personCircleOutline,
   personOutline,
 } from 'ionicons/icons';
+import { User} from "../types";
 
-interface ProfileProps {
-  user?: {
-    username: string;
-    password: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-  };
-}
 
-const UserProfile: React.FC<ProfileProps> = ({ user }) => {
+
+const UserProfile= () => {
+  const [userData, setUserData] = useState<User | null>(null);
+
+
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
   const togglePasswordVisibility = () => {
     setIsPasswordHidden(!isPasswordHidden);
@@ -51,13 +47,21 @@ const UserProfile: React.FC<ProfileProps> = ({ user }) => {
     query: '(min-width: 451px) and (max-width: 1250px)',
   });
 
-  // TODO fetch user info here, using userId from localStorage
+  useEffect(() => {
+    fetch(process.env.REACT_APP_API_URL + `/users/detail?username=${localStorage.getItem('user')}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('Fetched user data:', data);
+          setUserData(data);
+        })
+        .catch((error) => console.error('Error fetching user data:', error));
+  }, [localStorage.getItem('user')]);
 
   return (
     <div className="container">
       <IonCard className="card-container">
         <IonCardHeader>
-          <IonCardTitle>Hi, {user?.username || '[username]'}</IonCardTitle>
+          <IonCardTitle>Hi, {localStorage.getItem('user')}!</IonCardTitle>
           <IonCardSubtitle>Here is your profile</IonCardSubtitle>
         </IonCardHeader>
         <IonCardContent>
@@ -69,7 +73,7 @@ const UserProfile: React.FC<ProfileProps> = ({ user }) => {
                 size={isSmallScreen ? 'default' : 'large'}
                 icon={personCircleOutline}
               ></IonIcon>
-              <IonLabel>{user?.username || '[username]'}</IonLabel>
+              <IonLabel>{userData?.username}</IonLabel>
               <IonIcon
                 className="edit-icon"
                 slot="end"
@@ -89,7 +93,7 @@ const UserProfile: React.FC<ProfileProps> = ({ user }) => {
                 size={isSmallScreen ? 'default' : 'large'}
                 icon={personOutline}
               ></IonIcon>
-              <IonLabel>{user?.firstName || '[firstName]'}</IonLabel>
+              <IonLabel>{userData?.firstName}</IonLabel>
               <IonIcon
                 className="edit-icon"
                 slot="end"
@@ -109,7 +113,7 @@ const UserProfile: React.FC<ProfileProps> = ({ user }) => {
                 size={isSmallScreen ? 'default' : 'large'}
                 icon={personOutline}
               ></IonIcon>
-              <IonLabel>{user?.lastName || '[lastName]'}</IonLabel>
+              <IonLabel>{userData?.lastName}</IonLabel>
               <IonIcon
                 className="edit-icon"
                 slot="end"
@@ -129,7 +133,7 @@ const UserProfile: React.FC<ProfileProps> = ({ user }) => {
                 size={isSmallScreen ? 'default' : 'large'}
                 icon={mailOutline}
               ></IonIcon>
-              <IonLabel>{user?.email || '[email]'}</IonLabel>
+              <IonLabel>{userData?.email}</IonLabel>
               <IonIcon
                 className="edit-icon"
                 slot="end"
@@ -153,7 +157,7 @@ const UserProfile: React.FC<ProfileProps> = ({ user }) => {
               ></IonIcon>
               <IonInput
                 type={isPasswordHidden ? 'password' : 'text'}
-                value={user?.password || '[password]'}
+                value={userData?.password}
                 readonly
               ></IonInput>
               <IonIcon
