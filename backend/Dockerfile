@@ -5,4 +5,4 @@ WORKDIR /app
 COPY target/*.jar app.jar
 COPY src/main/resources/prod.application.properties application.properties
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar", "--spring.config.location=file:/app/application.properties"]
