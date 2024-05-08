@@ -11,6 +11,7 @@ import {
 } from '@ionic/react';
 import { logInOutline, personAddOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router';
+import Toast from './Toast';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -18,27 +19,32 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   const history = useHistory();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const response = await fetch(process.env.REACT_APP_API_URL + '/users/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        process.env.REACT_APP_API_URL + '/users/register',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: 0,
+            username: username,
+            password: password,
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+            reviews: [],
+          }),
         },
-        body: JSON.stringify({
-          userId: 0,
-          username: username,
-          password: password,
-          email: email,
-          firstName: firstName,
-          lastName: lastName,
-          reviews: [],
-        }),
-      });
+      );
       if (!response.ok) {
         console.error('Response status:', response.status);
       }
@@ -46,15 +52,16 @@ const Register = () => {
       const data = await response.json();
       if ('errorMessage' in data) {
         console.error(data.errorMessage);
+        setShowToast(true);
+        setToastMessage(data.errorMessage);
       } else {
         localStorage.setItem('user', username);
         history.push('/page/trending');
-
       }
     } catch (error) {
       console.error('Fetch error:', error);
     }
-     };
+  };
 
   return (
     <>
@@ -63,7 +70,6 @@ const Register = () => {
           <IonTitle>MovieHub</IonTitle>
         </IonToolbar>
       </IonHeader>
-
       <div className="form">
         <h1>Sign up</h1>
         <h3>and dive into films</h3>
@@ -118,12 +124,17 @@ const Register = () => {
             </IonButton>
           </Link>
 
-          <IonButton onClick={handleSubmit}>
+          <IonButton onClick={handleSubmit} id="open-toast">
             Register
             <IonIcon slot="start" icon={personAddOutline}></IonIcon>
           </IonButton>
         </form>
       </div>
+      <Toast
+        isOpen={showToast}
+        message={toastMessage}
+        onDidDismiss={() => setShowToast(false)}
+      />{' '}
     </>
   );
 };
