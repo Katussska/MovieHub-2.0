@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  IonButton,
   IonContent,
   IonIcon,
   IonItem,
@@ -78,6 +79,11 @@ export const appPages: AppPage[] = [
 const Menu: React.FC = () => {
   const location = useLocation();
 
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
+
   return (
     <IonMenu contentId="main" type="overlay">
       <IonContent>
@@ -110,6 +116,9 @@ const Menu: React.FC = () => {
             );
           })}
         </IonList>
+        <IonButton className="ion-margin-start" onClick={handleLogout}>
+          Log out
+        </IonButton>{' '}
       </IonContent>
     </IonMenu>
   );
