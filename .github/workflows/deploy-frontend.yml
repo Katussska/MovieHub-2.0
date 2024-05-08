@@ -35,6 +35,8 @@ jobs:
           npm i
 
       - name: Build
+        env:
+          REACT_APP_API_URL: https://moviehub-server.ymir.orexin.cz
         run: | 
           cd frontend
           npm run build

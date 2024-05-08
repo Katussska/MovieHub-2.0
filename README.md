@@ -1,7 +1,18 @@
 # MovieHub-2.0
 MovieHub but made with Ionic-React and Java Spring 
 
-## Setup backend
+## Setup
+
+### frontend
+
+```
+cp frontend/.env.example frontend/.env
+cd frontend
+npm i
+npm start
+```
+
+### backend
 
 1. Create `application.properties`
 
