@@ -1,8 +1,5 @@
 package com.katussska.backend.entities;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,12 +14,10 @@ import java.util.List;
         @Index(name = "idx_film_film_id_unq", columnList = "film_id", unique = true)
 })
 @NoArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "filmId")
 public class Film {
     @Column(name = "18+", nullable = false)
     private Boolean adult;
 
-    @JsonIgnoreProperties("films")
     @ManyToMany
     @JoinTable(
             name = "film_genre",
