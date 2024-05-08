@@ -64,7 +64,7 @@ public class FilmSer {
         film.setFilmId(filmDto.getId());
         film.setTitle(filmDto.getTitle());
         film.setDescription(filmDto.getOverview());
-        film.setPosterPath(filmDto.getPosterPath() != null ? "https://image.tmdb.org/t/p/original" + filmDto.getPosterPath() : "/addons/MovieHub_poster.jpg");
+        film.setPosterPath(filmDto.getPosterPath() != null ? "https://image.tmdb.org/t/p/original" + filmDto.getPosterPath() : "../backend/src/main/java/com.katussska.backend/addons/MovieHub_poster.jpg");
         film.setRelease(filmDto.getReleaseDate());
         film.setRating(filmDto.getVoteAverage());
         film.setGenres(filmDto.getGenres()
