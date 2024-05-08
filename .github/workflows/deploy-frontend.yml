@@ -34,7 +34,9 @@ jobs:
           npm i
 
       - name: Build
-        run: npm run build
+        run: | 
+          cd frontend
+          npm run build
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
