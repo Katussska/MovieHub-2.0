@@ -29,7 +29,9 @@ jobs:
           node-version: lts/hydrogen
 
       - name: Install dependencies
-        run: npm i
+        run: |
+          cd frontend
+          npm i
 
       - name: Build
         run: npm build
