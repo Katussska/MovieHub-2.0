@@ -60,7 +60,8 @@ const ReviewsContainer = () => {
     const date = new Date().toISOString().split('T')[0];
 
     fetch(
-      `http://localhost:8080/reviews/create?content=${encodeURIComponent(content)}&date=${date}&username=${localStorage.getItem('user')}&filmId=${id}`,
+      process.env.REACT_APP_API_URL +
+        `/reviews/create?content=${encodeURIComponent(content)}&date=${date}&username=${localStorage.getItem('user')}&filmId=${id}`,
       {
         method: 'POST',
         headers: {
