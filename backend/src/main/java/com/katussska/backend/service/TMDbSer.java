@@ -10,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +20,8 @@ import java.util.Objects;
 public class TMDbSer {
 
     private static final Logger log = LoggerFactory.getLogger(TMDbSer.class);
-    private final String API_KEY = "ef076b99225793040b2243b3b0b5b8c5";
+    @Value("${tmdb.api-key}")
+    private String API_KEY;
     private final RestTemplate restTemplate;
 
     public TMDbSer(RestTemplate restTemplate) {
