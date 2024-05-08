@@ -20,7 +20,7 @@ const ReviewItem: React.FC<ReviewProps> = ({ review }) => {
         icon={personCircleOutline}
       ></IonIcon>
       <div className={'review-container'}>
-        <IonLabel className={'review-username'}>
+        <IonLabel color="primary" className={'review-username'}>
           {review.username}
           <p>{review.date}</p>
         </IonLabel>

@@ -31,7 +31,7 @@ const ReviewsContainer = () => {
         const reviews = data.map((item) => ({
           date: item.date,
           content: item.content,
-          username: item.appUser.username,
+          username: item.username,
         }));
         setReviews(reviews);
       })
@@ -141,6 +141,7 @@ const ReviewsContainer = () => {
             placeholder=" I really liked this movie!"
             counter={true}
             maxlength={150}
+            value={content}
             onIonChange={(e) => setContent(e.detail.value!)}
           ></IonInput>
 

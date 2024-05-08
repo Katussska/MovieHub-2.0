@@ -20,7 +20,7 @@ const EditPopUp: React.FC<EditPopUpProps> = ({
       buttons={['Cancel', 'Edit']}
       inputs={[
         {
-          placeholder: text,
+          placeholder: 'NOT WORKING',
         },
       ]}
     ></IonAlert>

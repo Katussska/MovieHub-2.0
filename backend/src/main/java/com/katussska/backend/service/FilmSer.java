@@ -5,6 +5,8 @@ import com.katussska.backend.entities.Film;
 import com.katussska.backend.entities.Genre;
 import com.katussska.backend.repository.FilmRep;
 import com.katussska.backend.repository.GenreRep;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class FilmSer {
+    private static final Logger log = LoggerFactory.getLogger(FilmSer.class);
     private final TMDbSer tmdbService;
     private final FilmRep filmRepository;
     private final GenreRep genreRepository;
@@ -36,6 +39,7 @@ public class FilmSer {
     }
 
     private List<Film> getFilms(List<FilmDto> filmDtos) {
+
         List<Film> films = filmDtos.stream()
                 .map(filmDto -> {
                     if (filmRepository.existsById(filmDto.getId())) {

@@ -1,5 +1,6 @@
 package com.katussska.backend.controller;
 
+import com.katussska.backend.dto.ReviewResponseDto;
 import com.katussska.backend.entities.AppUser;
 import com.katussska.backend.entities.Film;
 import com.katussska.backend.entities.Review;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/reviews")
@@ -33,9 +35,9 @@ public class ReviewCont {
 
     @PostMapping("/create")
     public ResponseEntity<Review> createReview(@RequestParam String content, @RequestParam String date,
-                                               @RequestParam Long userId, @RequestParam Long filmId) {
+                                               @RequestParam String username, @RequestParam Long filmId) {
         Review review = new Review();
-        AppUser appUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        AppUser appUser = userRepository.findByUsername(username);
         Film film = filmRepository.findById(filmId).orElseThrow(() -> new RuntimeException("Film not found"));
 
         review.setContent(content);
@@ -62,8 +64,17 @@ public class ReviewCont {
     }
 
     @GetMapping("/film/filmReviews")
-    public ResponseEntity<List<Review>> getReviewsForFilm(@RequestParam Long filmId) {
+    public ResponseEntity<List<ReviewResponseDto>> getReviewsForFilm(@RequestParam Long filmId) {
         List<Review> reviews = reviewRepository.findByFilm_FilmId(filmId);
-        return new ResponseEntity<>(reviews, HttpStatus.OK);
+        List<ReviewResponseDto> reviewResponseDtos = reviews.stream()
+                .map(review -> {
+                    ReviewResponseDto dto = new ReviewResponseDto();
+                    dto.setDate(review.getDate());
+                    dto.setContent(review.getContent());
+                    dto.setUsername(review.getAppUser().getUsername());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(reviewResponseDtos, HttpStatus.OK);
     }
 }

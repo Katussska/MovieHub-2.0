@@ -1,6 +1,5 @@
 package com.katussska.backend.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -17,7 +16,7 @@ import java.util.List;
         @Index(name = "idx_user_user_id", columnList = "user_id")
 })
 @NoArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "userId")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,7 +37,7 @@ public class AppUser {
 
     @Column(name = "last_name", nullable = false)
     private String lastName;
-
+    
     @OneToMany(mappedBy = "appUser")
     private List<Review> reviews;
 }
