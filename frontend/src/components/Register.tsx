@@ -81,7 +81,7 @@ const Register = () => {
             label="First Name"
             labelPlacement="floating"
             fill="outline"
-            placeholder="Filip"
+            placeholder=" Your first name"
           ></IonInput>
           <IonInput
             value={lastName}
@@ -89,7 +89,7 @@ const Register = () => {
             label="Last Name"
             labelPlacement="floating"
             fill="outline"
-            placeholder="Sikora"
+            placeholder=" Your last name"
           ></IonInput>
           <IonInput
             value={username}
@@ -97,7 +97,7 @@ const Register = () => {
             label="Username"
             labelPlacement="floating"
             fill="outline"
-            placeholder="Tassilo"
+            placeholder=" Your username"
           ></IonInput>
           <IonInput
             value={email}

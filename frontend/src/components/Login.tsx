@@ -73,7 +73,7 @@ const Login = () => {
             label="Username"
             labelPlacement="floating"
             fill="outline"
-            placeholder="Tassilo"
+            placeholder=" Your username"
           ></IonInput>
 
           <IonInput
